@@ -1,0 +1,49 @@
+{
+  "_format": "hh3-sol-build-info-1",
+  "id": "solc-0_8_28-24056a30522cb27153e73d82dac64851e108cfaa",
+  "solcVersion": "0.8.28",
+  "solcLongVersion": "0.8.28+commit.7893614a",
+  "compilerType": "solc",
+  "toolVersions": {
+    "hardhat": "3.7.0"
+  },
+  "userSourceNameMap": {
+    "contracts/ResearchRegistry.sol": "project/contracts/ResearchRegistry.sol"
+  },
+  "input": {
+    "language": "Solidity",
+    "settings": {
+      "evmVersion": "cancun",
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "outputSelection": {
+        "*": {
+          "": [
+            "ast"
+          ],
+          "*": [
+            "abi",
+            "evm.bytecode.linkReferences",
+            "evm.bytecode.object",
+            "evm.bytecode.opcodes",
+            "evm.bytecode.sourceMap",
+            "evm.deployedBytecode.immutableReferences",
+            "evm.deployedBytecode.linkReferences",
+            "evm.deployedBytecode.object",
+            "evm.deployedBytecode.opcodes",
+            "evm.deployedBytecode.sourceMap",
+            "evm.methodIdentifiers"
+          ]
+        }
+      },
+      "remappings": []
+    },
+    "sources": {
+      "project/contracts/ResearchRegistry.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.20;\r\n\r\ncontract ResearchRegistry {\r\n\r\n    struct Record {\r\n        string fileHash;\r\n        string ipfsCID;\r\n        address owner;\r\n        uint256 timestamp;\r\n    }\r\n\r\n    mapping(string => Record) public records;\r\n\r\n    function registerPaper(\r\n        string memory _fileHash,\r\n        string memory _ipfsCID\r\n    ) public {\r\n\r\n        records[_fileHash] = Record({\r\n            fileHash: _fileHash,\r\n            ipfsCID: _ipfsCID,\r\n            owner: msg.sender,\r\n            timestamp: block.timestamp\r\n        });\r\n    }\r\n\r\n    function getRecord(\r\n        string memory _fileHash\r\n    )\r\n        public\r\n        view\r\n        returns (\r\n            string memory,\r\n            string memory,\r\n            address,\r\n            uint256\r\n        )\r\n    {\r\n        Record memory record = records[_fileHash];\r\n\r\n        return (\r\n            record.fileHash,\r\n            record.ipfsCID,\r\n            record.owner,\r\n            record.timestamp\r\n        );\r\n    }\r\n}"
+      }
+    }
+  }
+}
