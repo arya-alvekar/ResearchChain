@@ -107,7 +107,7 @@ The blockchain uses a **local Hardhat Ethereum node**, allowing transactions and
 ## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/ResearchChain.git
+git clone https://github.com/arya-alvekar/ResearchChain.git
 
 cd ResearchChain
 ```
@@ -200,9 +200,9 @@ http://localhost:5173
 
 ---
 
-## Register Paper
+## Register User
 
-![Register Paper](screenshots/register.png)
+![Register User](screenshots/register.png)
 
 ---
 
@@ -212,9 +212,16 @@ http://localhost:5173
 
 ---
 
+
+## Dashboard
+
+![Dashboard] (screenshots/dashboard.png)
+
+---
+
 ## Paper Versions
 
-![Paper Versions](screenshots/version.png)
+![Paper Versions](screenshots/versions.png)
 
 ---
 
