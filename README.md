@@ -1,6 +1,6 @@
 # ResearchChain
 
-ResearchChain is a decentralized research paper management platform that uses blockchain technology to ensure the integrity and authenticity of research publications. The system stores research metadata in MongoDB, research documents on IPFS, and immutable proof of ownership and integrity on an Ethereum blockchain.
+ResearchChain is a blockchain-enabled research paper management platform that provides secure publication, version control, and integrity verification for academic research.
 
 ---
 
@@ -8,18 +8,19 @@ ResearchChain is a decentralized research paper management platform that uses bl
 
 - User authentication using JWT
 - Create and manage research papers
-- Upload multiple paper versions
-- Store PDFs on IPFS
-- Generate SHA-256 hash for every uploaded paper
+- Upload multiple versions of a research paper
+- Store research PDFs on IPFS
+- Generate SHA-256 hash for every uploaded document
 - Register paper hash and IPFS CID on Ethereum
 - Verify document integrity using blockchain records
 - Browse published research papers
+- Maintain immutable version history
 
 ---
 
 ## Architecture
 
-```
+```text
                     +------------------+
                     |     React UI     |
                     +--------+---------+
@@ -31,20 +32,21 @@ ResearchChain is a decentralized research paper management platform that uses bl
         |                    |                   |
         |                    |                   |
      MongoDB               IPFS            Ethereum
-   (Paper Metadata)      (PDF Files)    (Hash + CID +
-                                           Owner +
-                                         Timestamp)
+   (Metadata)          (PDF Storage)   (Hash, CID,
+                                        Owner,
+                                        Timestamp)
 ```
 
 ---
 
-## Technology Stack
+## Tech Stack
 
 ### Frontend
 
 - React
 - Vite
 - Axios
+- Tailwind CSS
 
 ### Backend
 
@@ -59,23 +61,23 @@ ResearchChain is a decentralized research paper management platform that uses bl
 
 - Solidity
 - Hardhat
-- Ethers.js
 - Hardhat Ignition
+- Ethers.js
 
 ### Storage
 
-- IPFS
+- IPFS (Pinata)
 
 ---
 
 ## Project Structure
 
-```
+```text
 ResearchChain
 │
-├── client/          # React frontend
-├── server/          # Express backend
-├── blockchain/      # Solidity smart contracts
+├── client/          React frontend
+├── server/          Express backend
+├── blockchain/      Solidity smart contracts
 └── README.md
 ```
 
@@ -83,66 +85,86 @@ ResearchChain
 
 ## Smart Contract
 
-The `ResearchRegistry` contract stores immutable records for every uploaded paper.
+The `ResearchRegistry` smart contract stores immutable records for every uploaded research paper.
 
-Each record contains:
+Each blockchain record contains:
 
 - SHA-256 file hash
 - IPFS CID
 - Owner wallet address
 - Upload timestamp
 
-## Installation
+The blockchain is used solely for integrity verification, while user information, paper metadata, and version details are stored in MongoDB.
 
-### Clone the repository
+---
+
+# Local Deployment
+
+The blockchain uses a **local Hardhat Ethereum node**, allowing transactions and smart contract interactions without deploying to a public blockchain.
+
+---
+
+## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/<username>/ResearchChain.git
+git clone https://github.com/<your-username>/ResearchChain.git
+
 cd ResearchChain
 ```
 
 ---
 
-### Blockchain
+## 2. Blockchain
+
+Install dependencies.
 
 ```bash
 cd blockchain
+
 npm install
 ```
 
-Start a local blockchain
+Start the local Hardhat blockchain.
 
 ```bash
 npx hardhat node
 ```
 
-Deploy the contract
+Deploy the smart contract.
 
 ```bash
-npx hardhat ignition deploy ignition/modules/ResearchRegistry.js --network localhost
+npx hardhat ignition deploy ignition/modules/ResearchRegistryModule.ts --network localhost
 ```
 
 ---
 
-### Backend
+## 3. Backend
+
+Install dependencies.
 
 ```bash
 cd server
+
 npm install
 ```
 
-Create a `.env` file containing:
+Create a `.env` file.
 
 ```env
 PORT=<port_no>
+
 MONGO_URI=<your_mongodb_connection_string>
+
 JWT_SECRET=<your_secret>
+
 PINATA_JWT=<your_pinata_jwt>
+
 PRIVATE_KEY=<wallet_private_key>
+
 CONTRACT_ADDRESS=<deployed_contract_address>
 ```
 
-Run the backend
+Run the backend.
 
 ```bash
 npm run dev
@@ -150,25 +172,62 @@ npm run dev
 
 ---
 
-### Frontend
+## 4. Frontend
+
+Install dependencies.
 
 ```bash
 cd client
+
 npm install
+
 npm run dev
 ```
+
+The application will be available at
+
+```
+http://localhost:5173
+```
+
+---
+
+# Screenshots
+
+## Landing Page
+
+![Landing Page](screenshots/landing.png)
+
+---
+
+## Register Paper
+
+![Register Paper](screenshots/register.png)
+
+---
+
+## Browse Papers
+
+![Browse Papers](screenshots/browse.png)
+
+---
+
+## Paper Versions
+
+![Paper Versions](screenshots/version.png)
 
 ---
 
 ## Future Improvements
 
-- MetaMask integration
-- Deployment to Sepolia/Mainnet
+- MetaMask wallet integration
 - Research similarity detection
 - Citation tracking
+- Role-based collaboration between multiple authors
+- Advanced search and filtering
 
 ---
 
 ## License
 
-This project is intended for educational and research purposes.
+This project was developed for educational and research purposes.
