@@ -215,7 +215,7 @@ http://localhost:5173
 
 ## Dashboard
 
-![Dashboard] (screenshots/dashboard.png)
+![Dashboard](screenshots/dashboard.png)
 
 ---
 
