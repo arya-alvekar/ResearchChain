@@ -1,5 +1,5 @@
 const Paper = require("../models/Paper");
-const PaperVersion = require("../models/paperVersion");
+const PaperVersion = require("../models/PaperVersion");
 const fs = require("fs");
 const crypto = require("crypto");
 const uploadToPinata = require("../utils/pinata");
@@ -8,7 +8,6 @@ const { registerPaperOnChain } = require("../utils/blockchain");
 const createVersion = async (req, res) => {
   try {
     const paperId = req.params.paperId;
-
     const { notes } = req.body;
 
     const paper = await Paper.findById(paperId);
@@ -19,7 +18,9 @@ const createVersion = async (req, res) => {
       });
     }
 
-    const latestVersion = await PaperVersion.findOne({ paper: paperId }).sort({
+    const latestVersion = await PaperVersion.findOne({
+      paper: paperId,
+    }).sort({
       versionNumber: -1,
     });
 
@@ -35,6 +36,8 @@ const createVersion = async (req, res) => {
 
     res.status(201).json(version);
   } catch (error) {
+    console.error(error);
+
     res.status(500).json({
       message: error.message,
     });

@@ -1,4 +1,4 @@
-const PaperVersion = require("../models/paperVersion");
+const PaperVersion = require("../models/PaperVersion");
 const { getRecordByHash } = require("../utils/blockchain");
 
 const verifyPaper = async (req, res) => {
@@ -12,6 +12,11 @@ const verifyPaper = async (req, res) => {
         message: "Version not found",
       });
     }
+    if (version.ipfsCID || version.fileHash || version.txHash) {
+      return res.status(400).json({
+          message: "This version already has an uploaded document."
+      });
+  }
 
     console.log("Version hash:", version.fileHash);
 
@@ -28,6 +33,7 @@ const verifyPaper = async (req, res) => {
       ipfsCID: blockchainRecord.ipfsCID,
       owner: blockchainRecord.owner,
       timestamp: blockchainRecord.timestamp,
+      txHash: version.txHash,
     });
   } catch (error) {
     res.status(500).json({

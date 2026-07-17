@@ -6,10 +6,10 @@ const connectDB = require("./config/db");
 
 const app = express();
 
-const authRoutes = require("./routes/authRoutes");
+const authRoutes = require("./routes/authRoutes.js");
 const paperRoutes = require("./routes/paperRoutes.js");
-const versionRoutes = require("./routes/versionRoutes");
-const verifyRoutes = require("./routes/verifyRoutes");
+const versionRoutes = require("./routes/versionRoutes.js");
+const verifyRoutes = require("./routes/verifyRoutes.js");
 
 connectDB();
 

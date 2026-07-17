@@ -1,5 +1,19 @@
 const Paper = require("../models/Paper");
 
+const getAllPapers = async (req, res) => {
+  try {
+    const papers = await Paper.find()
+      .populate("owner", "name email")
+      .sort({ createdAt: -1 });
+
+    res.json(papers);
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+
 const createPaper = async (req, res) => {
   try {
     const { title, abstract, keywords, authors } = req.body;
@@ -38,7 +52,7 @@ const getPaperById = async (req, res) => {
   try {
     const paper = await Paper.findById(req.params.id).populate(
       "owner",
-      "name email walletAddress"
+      "name email"
     );
 
     if (!paper) {
@@ -56,6 +70,7 @@ const getPaperById = async (req, res) => {
 };
 
 module.exports = {
+  getAllPapers,
   createPaper,
   getMyPapers,
   getPaperById,

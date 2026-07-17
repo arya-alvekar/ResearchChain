@@ -1,18 +1,30 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import PaperDetails from "./pages/PaperDetails";
+import Landing from "./pages/Public/Landing";
+import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
+import Home from "./pages/Public/Home";
+import PaperView from "./pages/Public/PaperView";
+import Dashboard from "./pages/Private/Dashboard";
+import ManagePaper from "./pages/Private/ManagePaper";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Landing />} />
+
+        <Route path="/browse" element={<Home />} />
+
+        <Route path="/login" element={<Login />} />
+
         <Route path="/register" element={<Register />} />
+
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/paper/:id" element={<PaperDetails />} />
+
+        <Route path="/paper/:id" element={<PaperView />} />
+
+        <Route path="/manage-paper/:id" element={<ManagePaper />} />
       </Routes>
     </BrowserRouter>
   );

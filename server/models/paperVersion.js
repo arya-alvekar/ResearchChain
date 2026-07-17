@@ -18,6 +18,11 @@ const paperVersionSchema = new mongoose.Schema(
       default: "",
     },
 
+    author: {
+      type: String,
+      default: "",
+    },
+
     fileName: {
       type: String,
       default: "",
